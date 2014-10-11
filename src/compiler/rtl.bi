@@ -810,7 +810,7 @@ enum FB_RTL_OPT
 	FB_RTL_OPT_ERROR	  = &h00000002					'' returns an error
 	FB_RTL_OPT_MT		  = &h00000004					'' needs the multithreaded rtlib
 
-	FB_RTL_OPT_DBGONLY	  = &h00000010                  '' -g only
+	FB_RTL_OPT_DBGONLY	  = &h00000010                  '' Only if assertions enabled (-g)
 				''= &h00000020
 	FB_RTL_OPT_STRSUFFIX  = &h00000040                  '' has a $ suffix (-lang qb only)
 	FB_RTL_OPT_NOQB		  = &h00000080                  '' anything but -lang qb

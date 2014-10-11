@@ -1345,6 +1345,7 @@ enum
 	OPT_FPU
 	OPT_G
 	OPT_GEN
+	OPT_GSYMBOLSONLY
 	OPT_HELP
 	OPT_I
 	OPT_INCLUDE
@@ -1406,6 +1407,7 @@ dim shared as integer option_takes_argument(0 to (OPT__COUNT - 1)) = _
 	TRUE , _ '' OPT_FPU
 	FALSE, _ '' OPT_G
 	TRUE , _ '' OPT_GEN
+	FALSE, _ '' OPT_GSYMBOLSONLY
 	FALSE, _ '' OPT_HELP
 	TRUE , _ '' OPT_I
 	TRUE , _ '' OPT_INCLUDE
@@ -1541,6 +1543,7 @@ private sub handleOpt(byval optid as integer, byref arg as string)
 
 	case OPT_G
 		fbSetOption( FB_COMPOPT_DEBUG, TRUE )
+		fbSetOption( FB_COMPOPT_ASSERTIONS, TRUE )
 
 	case OPT_GEN
 		select case( lcase( arg ) )
@@ -1553,6 +1556,10 @@ private sub handleOpt(byval optid as integer, byref arg as string)
 		case else
 			hFatalInvalidOption( arg )
 		end select
+
+	case OPT_GSYMBOLSONLY
+		fbSetOption( FB_COMPOPT_DEBUG, TRUE )
+		fbSetOption( FB_COMPOPT_ASSERTIONS, FALSE )
 
 	case OPT_HELP
 		fbc.showhelp = TRUE
@@ -1849,6 +1856,7 @@ private function parseOption(byval opt as zstring ptr) as integer
 	case asc("g")
 		ONECHAR(OPT_G)
 		CHECK("gen", OPT_GEN)
+		CHECK("gsymbolsonly", OPT_GSYMBOLSONLY)
 
 	case asc( "h" )
 		CHECK( "help", OPT_HELP )
@@ -3239,8 +3247,9 @@ private sub hPrintOptions( )
 	print "  -forcelang <name>  Override #lang statements in source code"
 	print "  -fpmode fast|precise  Select floating-point math accuracy/speed"
 	print "  -fpu x87|sse     Set target FPU"
-	print "  -g               Add debug info"
+	print "  -g               Add debug info and enable assert()/__FB_DEBUG__"
 	print "  -gen gas|gcc|llvm  Select code generation backend"
+	print "  -gsymbolsonly    Add debug info only, no assert()/__FB_DEBUG__"
 	print "  [-]-help         Show this help output"
 	print "  -i <path>        Add an include file search path"
 	print "  -include <file>  Pre-#include a file for each input .bas"

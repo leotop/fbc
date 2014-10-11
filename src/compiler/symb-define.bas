@@ -228,7 +228,7 @@ end function
 '':::::
 private function hDefDebug_cb ( ) as string
 
-	function = str( env.clopt.debug )
+	function = str( env.clopt.assertions )
 
 end function
 

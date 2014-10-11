@@ -430,6 +430,7 @@ sub fbGlobalInit()
 	env.clopt.forcelang     = FALSE
 
 	env.clopt.debug         = FALSE
+	env.clopt.assertions    = FALSE
 	env.clopt.errorcheck    = FALSE
 	env.clopt.extraerrchk   = FALSE
 	env.clopt.resumeerr     = FALSE
@@ -499,6 +500,8 @@ sub fbSetOption( byval opt as integer, byval value as integer )
 
 	case FB_COMPOPT_DEBUG
 		env.clopt.debug = value
+	case FB_COMPOPT_ASSERTIONS
+		env.clopt.assertions = value
 	case FB_COMPOPT_ERRORCHECK
 		env.clopt.errorcheck = value
 	case FB_COMPOPT_RESUMEERROR
@@ -568,6 +571,8 @@ function fbGetOption( byval opt as integer ) as integer
 
 	case FB_COMPOPT_DEBUG
 		function = env.clopt.debug
+	case FB_COMPOPT_ASSERTIONS
+		function = env.clopt.assertions
 	case FB_COMPOPT_ERRORCHECK
 		function = env.clopt.errorcheck
 	case FB_COMPOPT_RESUMEERROR

@@ -571,12 +571,12 @@ private sub addIntrinsicMacros(byval macdef as FB_RTL_MACRODEF ptr)
 
     	dim as integer addbody = TRUE
 
-    	'' only if debugging?
-    	if( (macdef->options and FB_RTL_OPT_DBGONLY) <> 0 ) then
-    		if( env.clopt.debug = FALSE ) then
-    			addbody = FALSE
-    		end if
-    	end if
+		'' Only add the assert[warn]() macros if assertions were enabled
+		if( (macdef->options and FB_RTL_OPT_DBGONLY) <> 0 ) then
+			if( env.clopt.assertions = FALSE ) then
+				addbody = FALSE
+			end if
+		end if
 
 		'' not supported by the C backend?
 		if( (macdef->options and FB_RTL_OPT_NOGCC) <> 0 ) then
